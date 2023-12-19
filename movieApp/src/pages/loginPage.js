@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -10,9 +10,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Card from "@mui/material/Card";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebase/firebase';
 import WavingHandIcon from '@mui/icons-material/WavingHand';
+import { AuthContext } from '../contexts/authContext';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -23,12 +23,13 @@ const theme = createTheme({
 });
 
 export default function Login() {
-  const [email, setEmail] = useState('');
+  const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [snackbarInfo, setSnackbarInfo] = useState({ open: false, severity: "success", message: "" });
   const navigate = useNavigate();
+  const context = useContext(AuthContext);
 
   const handleSnackClose = () => {
     setSnackbarInfo({ ...snackbarInfo, open: false });
@@ -41,8 +42,8 @@ export default function Login() {
       setError('');
       setLoading(true);
 
-      // Sign in with email and password using Firebase
-      await auth.signInWithEmailAndPassword(email, password);
+      // Use the authenticate function from the AuthContext
+      await context.authenticate(username, password);
 
       setSnackbarInfo({ open: true, severity: "success", message: "User Logged In!" });
       setTimeout(() => {
@@ -94,8 +95,8 @@ export default function Login() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={username}
+                  onChange={(e) => setUserName(e.target.value)}
                   variant="outlined"
                 />
               </Grid>
@@ -130,4 +131,3 @@ export default function Login() {
     </ThemeProvider>
   );
 }
-

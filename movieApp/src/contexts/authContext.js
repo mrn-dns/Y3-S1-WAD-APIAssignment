@@ -1,5 +1,5 @@
 import React, { useState, createContext } from "react";
-import { login, signup } from "../api/movies-api";
+import { login, signup } from '../api/tmdb-api'
 
 export const AuthContext = createContext(null);
 
@@ -27,7 +27,7 @@ const AuthContextProvider = (props) => {
   const register = async (username, password) => {
     const result = await signup(username, password);
     console.log(result.code);
-    return (result.code == 201) ? true : false;
+    return (result.code === 201) ? true : false;
   };
 
   const signout = () => {
