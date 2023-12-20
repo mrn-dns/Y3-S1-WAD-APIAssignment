@@ -57,7 +57,7 @@ export default function SignUp() {
       await context.register(userName, password);
       setRegistered(true);
       // Navigate after successful signup
-      navigate("/");
+      navigate("/movies/discovermovies");
       setOpen(true);
     } catch (error) {
       setError("Account could not be created");

@@ -6,7 +6,7 @@ import express from 'express';
 const router = express.Router();
 
 router.get('/', asyncHandler(async (req, res) => {
-    let { page = 1, limit = 10 } = req.query; // destructure page and limit and set default values
+    let { page = 1, limit = 40 } = req.query; // destructure page and limit and set default values
     [page, limit] = [+page, +limit]; //trick to convert to numeric (req.query will contain string values)
 
     // Parallel execution of counting movies and getting movies using movieModel
