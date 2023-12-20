@@ -13,7 +13,6 @@ import Alert from "@mui/material/Alert";
 import WavingHandIcon from '@mui/icons-material/WavingHand';
 import { AuthContext } from '../contexts/authContext';
 import { useNavigate } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
