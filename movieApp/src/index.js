@@ -37,8 +37,8 @@ const App = () => {
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <SiteHeader />
-      <MoviesContextProvider>
       <AuthContextProvider>
+      <MoviesContextProvider>
       <Routes>
         <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
         <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
@@ -57,8 +57,8 @@ const App = () => {
         <Route path="/users/signup" element={<SignUpPage />} />
         <Route path="/users/login" element={<LoginPage />} />
       </Routes>
-      </AuthContextProvider>
       </MoviesContextProvider>
+      </AuthContextProvider>
     </BrowserRouter>
     <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>

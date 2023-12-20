@@ -13,6 +13,7 @@ import Alert from "@mui/material/Alert";
 import WavingHandIcon from '@mui/icons-material/WavingHand';
 import { AuthContext } from '../contexts/authContext';
 import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -37,20 +38,25 @@ export default function Login() {
 
   const handleSignIn = async () => {
     setSnackbarInfo({ ...snackbarInfo, open: true, severity: "info", message: "Logging in..." });
-
+  
     try {
       setError('');
       setLoading(true);
-
-      // Use the authenticate function from the AuthContext
-      await context.authenticate(username, password);
-
-      setSnackbarInfo({ open: true, severity: "success", message: "User Logged In!" });
-      setTimeout(() => {
-        navigate('/');
-      }, 5000);
+  
+      const isAuthenticated = await context.authenticate(username, password);
+      console.log(isAuthenticated);
+  
+      if (isAuthenticated) {
+        setSnackbarInfo({ open: true, severity: "success", message: "User Logged In!" });
+        setTimeout(() => {
+          navigate('/');
+        }, 5000);
+      } else {
+        setError('Failed to sign in (username or password is incorrect!)');
+        setSnackbarInfo({ open: true, severity: "error", message: "Failed to sign in!" });
+      }
     } catch (err) {
-      setError('Failed to sign in (email or password is incorrect!)');
+      setError('Failed to sign in (username or password is incorrect!)');
       setSnackbarInfo({ open: true, severity: "error", message: "Failed to sign in!" });
     } finally {
       setLoading(false);
@@ -91,10 +97,10 @@ export default function Login() {
                 <TextField
                   required
                   fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                  id="username"
+                  label="UserName"
+                  name="username"
+                  autoComplete="username"
                   value={username}
                   onChange={(e) => setUserName(e.target.value)}
                   variant="outlined"
@@ -131,3 +137,72 @@ export default function Login() {
     </ThemeProvider>
   );
 }
+
+
+
+// import React, { useState, useContext } from 'react';
+// import Button from '@mui/material/Button';
+// import CssBaseline from '@mui/material/CssBaseline';
+// import TextField from '@mui/material/TextField';
+// import Link from '@mui/material/Link';
+// import Grid from '@mui/material/Grid';
+// import Box from '@mui/material/Box';
+// import Container from '@mui/material/Container';
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import Card from "@mui/material/Card";
+// import Snackbar from "@mui/material/Snackbar";
+// import Alert from "@mui/material/Alert";
+// import WavingHandIcon from '@mui/icons-material/WavingHand';
+// import { AuthContext } from '../contexts/authContext';
+// import { useNavigate } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
+
+// const theme = createTheme({
+//   palette: {
+//     primary: {
+//       main: '#6200ea', // Purple color
+//     },
+//   },
+// });
+
+// export default function Login() {
+//   const context = useContext(AuthContext);
+
+//     const [userName, setUserName] = useState("");
+//     const [password, setPassword] = useState("");
+
+//     const login = () => {
+//         context.authenticate(userName, password);
+//     };
+
+//     let location = useLocation();
+
+//     // Set 'from' to path where browser is redirected after a successful login - either / or the protected path user requested
+//     const { from } = location.state ? { from: location.state.from.pathname } : { from: "/" };
+
+//     if (context.isAuthenticated === true) {
+//         return <Navigate to={from} />;
+//     }
+
+//     if (context.isAuthenticated === true) {
+//       console.log('you did it')
+//   }
+
+//     return (
+//         <>
+//             <h2>Login page</h2>
+//             <p>You must log in to view the protected pages </p>
+//             <input id="username" placeholder="user name" onChange={e => {
+//                 setUserName(e.target.value);
+//             }}></input><br />
+//             <input id="password" type="password" placeholder="password" onChange={e => {
+//                 setPassword(e.target.value);
+//             }}></input><br />
+//             {/* Login web form  */}
+//             <button onClick={login}>Log in</button>
+//             <p>Not Registered?
+//                 <Link to="/signup">Sign Up!</Link></p>
+//         </>
+//     );
+// }
