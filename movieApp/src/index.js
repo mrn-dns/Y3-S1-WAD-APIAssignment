@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Navigate, Routes, Link } from "react-router-dom";
 import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
@@ -21,6 +21,7 @@ import MovieActorDetailsPage from "./pages/movieActorsDetailsPage";
 import LoginPage from "./pages/loginPage";
 import SignUpPage from './pages/signupPage';
 import AuthContextProvider from "./contexts/authContext";
+import ProtectedRoutes from "./protectedRoutes";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,23 +37,25 @@ const App = () => {
   return (
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
-      <SiteHeader />
       <AuthContextProvider>
+      <SiteHeader />
       <MoviesContextProvider>
       <Routes>
-        <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
-        <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
-        <Route path="/movies/:id" element={<MoviePage />} />
-        <Route path="/movies/:id/similar" element={<SimilarMoviesPage />} />
-        <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
-        <Route path="/movies/upcomingmovies" element={<UpcomingMoviePage />} />
-        <Route path="/movies/nowplayingmovies" element={<NowPlayingMoviePage />} />
-        <Route path="/movies/popularmovies" element={<PopularMoviePage />} />
-        <Route path="/movies/topratedmovies" element={<TopRatedMoviePage />} />
-        <Route path="/actors/" element={<MovieActorsPage />} />
-        <Route path="/actors/:id" element={<MovieActorDetailsPage />} />
-        <Route path="/actors/popularactors" element={<PopularMovieActorsPage />} />
-        <Route path="/" element={<HomePage />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
+          <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
+          <Route path="/movies/:id" element={<MoviePage />} />
+          <Route path="/movies/:id/similar" element={<SimilarMoviesPage />} />
+          <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
+          <Route path="/movies/upcomingmovies" element={<UpcomingMoviePage />} />
+          <Route path="/movies/nowplayingmovies" element={<NowPlayingMoviePage />} />
+          <Route path="/movies/popularmovies" element={<PopularMoviePage />} />
+          <Route path="/movies/topratedmovies" element={<TopRatedMoviePage />} />
+          <Route path="/actors/" element={<MovieActorsPage />} />
+          <Route path="/actors/:id" element={<MovieActorDetailsPage />} />
+          <Route path="/actors/popularactors" element={<PopularMovieActorsPage />} />
+          <Route path="/movies/discovermovies" element={<HomePage />} />
+        </Route>
         <Route path="*" element={ <Navigate to="/" /> } />
         <Route path="/users/signup" element={<SignUpPage />} />
         <Route path="/users/login" element={<LoginPage />} />

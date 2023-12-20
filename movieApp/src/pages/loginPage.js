@@ -12,7 +12,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import WavingHandIcon from '@mui/icons-material/WavingHand';
 import { AuthContext } from '../contexts/authContext';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -48,7 +48,7 @@ export default function Login() {
       if (isAuthenticated) {
         setSnackbarInfo({ open: true, severity: "success", message: "User Logged In!" });
         setTimeout(() => {
-          navigate('/');
+          // navigate('/');
         }, 5000);
       } else {
         setError('Failed to sign in (username or password is incorrect!)');
@@ -61,6 +61,14 @@ export default function Login() {
       setLoading(false);
     }
   };
+
+  let location = useLocation();
+
+  const { from } = location.state ? { from: location.state.from.pathname } : { from: "/" };
+
+  if (context.isAuthenticated === true) {
+    return <Navigate to={from} />;
+  }
 
   return (
     <ThemeProvider theme={theme}>

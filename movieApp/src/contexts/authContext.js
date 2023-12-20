@@ -16,25 +16,13 @@ const AuthContextProvider = (props) => {
   }
 
   const authenticate = async (username, password) => {
-    try {
-      const result = await login(username, password);
-  
-      if (result.token) {
-        setToken(result.token);
-        setIsAuthenticated(true);
-        setUserName(username);
-        return true; // Authentication successful     //MODIFIED AUTHENTICATE FUNCTION TO RETURN BOOLEAN
-      } else {
-        setIsAuthenticated(false);
-        return false; // Authentication failed
-      }
-    } catch (error) {
-      console.error("Error during authentication:", error);
-      setIsAuthenticated(false);
-      return false; // Authentication failed due to an error
+    const result = await login(username, password);
+    if (result.token) {
+      setToken(result.token)
+      setIsAuthenticated(true);
+      setUserName(username);
     }
   };
-  
 
   const register = async (username, password) => {
     const result = await signup(username, password);
