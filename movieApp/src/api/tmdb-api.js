@@ -300,20 +300,32 @@ export const getMovieImages = ({ queryKey }) => {
    });
   };
 
+  // export const getGenres = async () => {
+  //   return fetch(
+  //     "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
+  //       process.env.REACT_APP_TMDB_KEY +
+  //       "&language=en-US"
+  //   ).then( (response) => {
+  //     if (!response.ok) {
+  //       throw new Error(response.json().message);
+  //     }
+  //     return response.json();
+  //   })
+  //   .catch((error) => {
+  //     throw error
+  //  });
+  // };
+
   export const getGenres = async () => {
-    return fetch(
-      "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
-        process.env.REACT_APP_TMDB_KEY +
-        "&language=en-US"
-    ).then( (response) => {
-      if (!response.ok) {
-        throw new Error(response.json().message);
+    const response = await fetch(
+      'http://localhost:8080/api/movies/tmdb/genres', {
+      headers: {
+        'Authorization': window.localStorage.getItem('token'),
       }
-      return response.json();
-    })
-    .catch((error) => {
-      throw error
-   });
+    },
+    console.log(window.localStorage.getItem('token'))
+    )
+    return response.json();
   };
 
 
