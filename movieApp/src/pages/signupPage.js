@@ -46,16 +46,18 @@ export default function SignUp() {
     e.preventDefault();
     setOpen(true);
 
-    if (validPassword && password !== passwordAgain) {
-        return setError('Passwords do not match. Please confirm the password.');
-    } 
+    if (!validPassword || password !== passwordAgain) {
+      setError('Passwords do not match or do not meet the requirements. Please check your input.');
+      return;
+    }
   
     try {
       setError('');
       setLoading(true);
   
       await context.register(userName, password);
-      setRegistered(true);
+      if(registered)
+        setRegistered(true);
       // Navigate after successful signup
       navigate("/movies/discovermovies");
       setOpen(true);
