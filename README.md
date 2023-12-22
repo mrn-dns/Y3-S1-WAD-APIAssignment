@@ -29,7 +29,7 @@ And any other required dependencies.
 
 ## API Configuration
 
-First step consists of creating a ".env" file which contains the following variables: NODEENV, PORT, HOST, mongoDB,  
+First step consists of creating a ".env" file which contains the following variables: NODEENV, PORT, HOST, mongoDB, secret and TMDB_KEY.
 
 In order to connect to MongoDB Atlas, a connection string must be provided. The port and host on which the local API server is running is also specified. 
 ______________________
@@ -61,8 +61,4 @@ All routes except login/signup are protected unless user is logged in. After use
 
 ## Integrating with React App
 
-Describe how you integrated your React app with the API. List the views that use your Web API instead of the TMDB API. Describe any other updates to the React app from Assignment One.
-
-## Independent learning (if relevant)
-
-Briefly explain any non-standard features developed for the app.
+To help integrate the API with the react app I used Postman to verify each API call before trying to implement it. While working on the assignment, both the react app (port 3000) and API (port 8080) were live on my PC. The links used to grab information from TMDB were incorporated into the express API, and after link migration was compelted to the express API, the react app was provided with information by links such as *http://localhost:8080/api/movies/tmdb/genres*. 
