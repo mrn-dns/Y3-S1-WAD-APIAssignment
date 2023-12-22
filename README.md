@@ -1,48 +1,63 @@
 # Assignment 2 - Web API.
 
-Name: Your Name
+Name: Denis Remus Marincas
 
 ## Features.
 
 A bullet-point list of the ADDITIONAL features you have implemented in the API **THAT WERE NOT IN THE LABS** (or modifications to existing features)
  
- + Feature 1 
- + Feature 2 
- + Feature 3 
- + etc
+ + All Movie information is obtained from assignment API
+ + Actor information is obtained from assignment API
+ + Genre information is obtained from assignment API 
+ + Login/Signup through MongoDB Atlas
+ + Signout function implemented 
+ + Username displayed after login
+ + Improved user authentication security 
+ + Improved overall site design 
 
 ## Setup requirements.
 
-[ Outline any non-standard setup steps necessary to run your app locally after cloning the repo.]
+After cloning the react app from assignment one and the movieAPI from the labs following steps were taken:
+Inside the react app folder:
+ + npm install
+ + npm run start
+Inside the assignmentAPI folder:
+ + npm install --save cors
+ + npm run dev
+
+And any other required dependencies.
 
 ## API Configuration
 
-Describe any configuration that needs to take place before running the API. For example, creating an `.env` file and what variables to put in it. Give an example of how this might be done.
+First step consists of creating a ".env" file which contains the following variables: NODEENV, PORT, HOST, mongoDB,  
 
-REMEMBER: DON'T PUT YOUR OWN USERNAMES/PASSWORDS/AUTH KEYS IN THE README OR ON GITHUB, just placeholders as indicated below:
-
+In order to connect to MongoDB Atlas, a connection string must be provided. The port and host on which the local API server is running is also specified. 
 ______________________
 NODEENV=development
 PORT=8080
-HOST=
-mongoDB=YourMongoURL
-seedDb=true
+HOST= localhost
+mongoDB= *mongodb connection string*
 secret=YourJWTSecret
+TMDB_KEY = tmdbkey
 ______________________
 
 ## API Design
-Give an overview of your web API design, perhaps similar to the following: 
 
 - /api/movies | GET | Gets a list of movies 
-- /api/movies/{movieid} | GET | Gets a single movie 
-- /api/movies/{movieid}/reviews | GET | Get all reviews for movie 
-- /api/movies/{movieid}/reviews | POST | Create a new review for Movie 
+- /api/movies/tmdb/upcoming | GET | Gets a list of upcoming movies
+- /api/movies/tmdb/toprated | GET | Gets a list of top rated movies
+- /api/movies/tmdb/popularMovies | GET | Gets a list of popular movies
+- /api/movies/tmdb/nowplaying | GET | Gets a list of movies that are now playing
+- /api/movies/tmdb/genres | GET | Gets a list of genres (Used for sorting)
+- /api/movies/tmdb/actors | GET | Gets a list of actors
+- /api/movies/tmdb/popularActors | GET | Gets a list popular actors
+- /api/users | POST | Used for logging in
+- /api/users?action=register | POST | Used for creating a new user
 
-If you have your API design on an online platform or graphic, please link to it (e.g. [Swaggerhub](https://app.swaggerhub.com/)).
 
 ## Security and Authentication
 
-Give details of authentication/security implemented on the API (e.g. passport/sessions). Indicate which routes are protected.
+All routes except login/signup are protected unless user is logged in. After user is logged in, all routes are visible. Security has been enforced by enforcing user authentication using protected routes. Also, password regex and password matching is in place.
 
 ## Integrating with React App
 
