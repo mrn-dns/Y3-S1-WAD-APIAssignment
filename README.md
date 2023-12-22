@@ -18,10 +18,10 @@ A bullet-point list of the ADDITIONAL features you have implemented in the API *
 ## Setup requirements.
 
 After cloning the react app from assignment one and the movieAPI from the labs following steps were taken:
--Inside the react app folder:
+ - Inside the react app folder:
  + npm install
  + npm run start
--Inside the assignmentAPI folder:
+ - Inside the assignmentAPI folder:
  + npm install --save cors
  + npm run dev
 
