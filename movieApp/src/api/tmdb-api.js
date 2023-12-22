@@ -20,32 +20,56 @@ export const signup = async (username, password) => {
   return response.json();
 };
 
-export const getMovieActors = () => {
-  return fetch(
-    `https://api.themoviedb.org/3/person/popular?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=2`
-  ).then((response) => {
-    if (!response.ok) {
-      throw new Error(response.json().message);
+// export const getMovieActors = () => {
+//   return fetch(
+//     `https://api.themoviedb.org/3/person/popular?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=2`
+//   ).then((response) => {
+//     if (!response.ok) {
+//       throw new Error(response.json().message);
+//     }
+//     return response.json();
+//   })
+//   .catch((error) => {
+//      throw error
+//   });
+// };
+
+export const getMovieActors = async () => {
+  const response = await fetch(
+    'http://localhost:8080/api/movies/tmdb/actors', {
+    headers: {
+      'Authorization': window.localStorage.getItem('token'),
     }
-    return response.json();
-  })
-  .catch((error) => {
-     throw error
-  });
+  },
+  console.log(window.localStorage.getItem('token'))
+  )
+  return response.json();
 };
 
-export const getPopularMovieActors = () => {
-  return fetch(
-    `https://api.themoviedb.org/3/trending/person/week?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US`
-  ).then((response) => {
-    if (!response.ok) {
-      throw new Error(response.json().message);
+// export const getPopularMovieActors = () => {
+//   return fetch(
+//     `https://api.themoviedb.org/3/trending/person/week?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US`
+//   ).then((response) => {
+//     if (!response.ok) {
+//       throw new Error(response.json().message);
+//     }
+//     return response.json();
+//   })
+//   .catch((error) => {
+//      throw error
+//   });
+// };
+
+export const getPopularMovieActors = async () => {
+  const response = await fetch(
+    'http://localhost:8080/api/movies/tmdb/popularActors', {
+    headers: {
+      'Authorization': window.localStorage.getItem('token'),
     }
-    return response.json();
-  })
-  .catch((error) => {
-     throw error
-  });
+  },
+  console.log(window.localStorage.getItem('token'))
+  )
+  return response.json();
 };
 
 export const getMovieActor = (args) => {
@@ -129,6 +153,7 @@ export const getMovieActorsDetails = ({ queryKey }) => {
 //      throw error
 //   });
 // };
+
 export const getMovies = async () => {
   const response = await fetch(
     'http://localhost:8080/api/movies', {
@@ -157,6 +182,26 @@ export const getMovie = (args) => {
     throw error
  });
 };
+
+// export const getMovie = async (id) => {
+//   try {
+//     const response = await fetch(
+//       `http://localhost:8080/api/movies/${id}`, {
+//         headers: {
+//           'Authorization': window.localStorage.getItem('token'),
+//         },
+//       }
+//     );
+
+//     if (!response.ok) {
+//       throw new Error(response.json().message);
+//     }
+
+//     return await response.json();
+//   } catch (error) {
+//     throw error;
+//   }
+// };
   
 export const getMovieImages = ({ queryKey }) => {
   const [, idPart] = queryKey;

@@ -1,5 +1,8 @@
 import fetch from 'node-fetch';
 
+
+//MOVIE FETCHES
+
 export const getUpcomingMovies = async () => {
     try {
         const response = await fetch(
@@ -72,6 +75,41 @@ export const getTopRatedMovies = async () => {
 
         if (!response.ok) {
             throw new Error(response.json().message);
+        }
+
+        return await response.json();
+    } catch (error) {
+        throw error;
+    }
+};
+
+
+//ACTOR FETCHES
+
+export const getMovieActors = async (id) => {
+    try {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/person/popular?api_key=${process.env.TMDB_KEY}&language=en-US&page=2`
+        );
+
+        if (!response.ok) {
+            throw new Error(await response.json());
+        }
+
+        return await response.json();
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getPopularMovieActors = async (id) => {
+    try {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/trending/person/week?api_key=${process.env.TMDB_KEY}&language=en-US`
+        );
+
+        if (!response.ok) {
+            throw new Error(await response.json());
         }
 
         return await response.json();
